@@ -1,0 +1,45 @@
+{
+  "name": "kerthin-management",
+  "version": "0.0.1",
+  "description": "kerthin desktop app",
+  "homepage": "./",
+  "main": "main.js",
+  "repository": "https://github.com/thekerthin/kerthin-management.git",
+  "author": "sebastian.delaroche.dev@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js --mode development",
+    "prod": "webpack --mode production --config webpack.build.config.js && electron --noDevServer .",
+    "build": "webpack --config webpack.build.config.js --mode production",
+    "package": "npm run build",
+    "postpackage": "electron-packager ./ --out=./build"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "antd": "^4.5.2",
+    "ramda": "^0.27.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
+    "reselect": "^4.0.0",
+    "yaml": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "babili-webpack-plugin": "^0.1.2",
+    "css-loader": "^4.2.1",
+    "electron": "^9.1.2",
+    "electron-devtools-installer": "^3.1.1",
+    "electron-packager": "^15.0.0",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
