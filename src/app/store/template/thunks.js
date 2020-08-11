@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { readAndParserYAMLFile } from "../../../services/template";
+import { readYAMLAndNormalize } from "../../../services/template";
 
 export const findTemplates = createAsyncThunk(
   "templates/find-templates",
   () => {
     // TODO: read all user template paths
-    const template = readAndParserYAMLFile(
+    const template = readYAMLAndNormalize(
       "/Users/sebastian.delaroche/kerthin/kerthin-templates/default.yml"
     );
 

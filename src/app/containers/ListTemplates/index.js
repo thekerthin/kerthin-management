@@ -1,11 +1,11 @@
 import React, { useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Typography } from "antd";
 
 import { findTemplates } from "../../store/template/thunks";
 import { getAllTemplates } from "../../store/template/selectors";
 import ListTemplateCard from "../../components/ListTemplateCard";
+import PageLayout from "../../components/PageLayout";
 
 const ListTemplates = () => {
   const history = useHistory();
@@ -22,10 +22,11 @@ const ListTemplates = () => {
   );
 
   return (
-    <div>
-      <Typography.Title>Templates</Typography.Title>
-      <ListTemplateCard templates={templates} onCardClick={onTemplateClick} />
-    </div>
+    <PageLayout
+      content={
+        <ListTemplateCard templates={templates} onCardClick={onTemplateClick} />
+      }
+    />
   );
 };
 

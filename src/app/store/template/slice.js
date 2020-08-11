@@ -1,21 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 import { findTemplates } from "./thunks";
 
-const initialState = {
-  data: [],
+export const templateAdapter = createEntityAdapter();
+
+const initialState = templateAdapter.getInitialState({
   status: "none",
   error: null,
-};
+});
 
 export default createSlice({
   name: "templates",
   initialState,
   reducers: {},
   extraReducers: {
-    [findTemplates.fulfilled]: (state, action) => {
-      state.status = "succeeded";
-      state.data = action.payload;
-    },
+    [findTemplates.fulfilled]: templateAdapter.upsertMany,
   },
 });

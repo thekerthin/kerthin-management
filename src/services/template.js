@@ -1,22 +1,30 @@
 import * as fs from "fs";
 import * as YAML from "yaml";
 import * as R from "ramda";
+import * as uuid from "uuid";
 
-export const getScaffolding = R.prop("Scaffolding");
+export const templateSpec = R.applySpec({
+  id: R.prop("Id"),
+  name: R.prop("TemplateName"),
+  version: R.prop("Version"),
+  image: R.prop("Image"),
+  scaffolding: R.compose(transformScaffolding, R.prop("Scaffolding")),
+});
 
 export const readAndParserYAMLFile = (path) => {
   const file = fs.readFileSync(path, "utf8");
   return YAML.parseDocument(file).toJSON();
 };
 
-export const transformScaffolding = (scaffolding, index = 0, output = []) => {
+export function transformScaffolding(scaffolding, index = 0, output = []) {
   if (!scaffolding[index]) return output;
 
   const node = scaffolding[index];
 
   const element = {
     title: node.Name,
-    key: Math.round(Math.random() * 1000),
+    key: uuid.v4(),
+    content: node.Content || null,
   };
 
   if (node.Children) {
@@ -26,10 +34,9 @@ export const transformScaffolding = (scaffolding, index = 0, output = []) => {
   output.push(element);
 
   return transformScaffolding(scaffolding, index + 1, output);
-};
+}
 
-export const readYAMLAndTransformScaffolding = R.compose(
-  transformScaffolding,
-  getScaffolding,
+export const readYAMLAndNormalize = R.compose(
+  templateSpec,
   readAndParserYAMLFile
 );

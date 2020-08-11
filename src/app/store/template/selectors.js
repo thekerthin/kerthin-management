@@ -1,10 +1,8 @@
-import { createSelector } from "reselect";
-import * as R from "ramda";
+import { templateAdapter } from "./slice";
 
-export const getTemplateById = (id) =>
-  createSelector(
-    R.prop("templates"),
-    R.find((template) => template.id == id)
-  );
+const selectors = templateAdapter.getSelectors((state) => state.templates);
 
-export const getAllTemplates = R.path(["templates", "data"]);
+export const {
+  selectAll: getAllTemplates,
+  selectById: getTemplateById,
+} = selectors;
